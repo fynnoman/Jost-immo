@@ -18,7 +18,7 @@ export default function HeroHome() {
   const opacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
 
   return (
-    <section ref={ref} className="relative h-[112vh] w-full overflow-hidden bg-ink">
+    <section ref={ref} className="relative h-[100vh] w-full overflow-hidden bg-ink">
       <motion.div
         style={{ y: imgY, scale: imgScale, willChange: "transform" }}
         className="absolute inset-0"
@@ -38,16 +38,22 @@ export default function HeroHome() {
 
       <motion.div
         style={{ y: titleY, opacity }}
-        className="relative z-10 mx-auto flex h-screen max-w-[1400px] flex-col justify-end px-6 pb-24 lg:px-10 lg:pb-32"
+        className="absolute inset-x-0 bottom-0 z-10 mx-auto max-w-[1400px] px-6 pb-20 pt-32 lg:px-10 lg:pb-24"
       >
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, ease: [0.23, 1, 0.32, 1] }}
-          className="mb-8 flex items-center gap-4"
+          className="mb-6 flex items-center gap-4"
         >
-          <div className="relative h-14 w-20 rounded-lg bg-white/95 p-1.5 ring-1 ring-white/25">
-            <Image src="/images/logo.jpeg" alt="Logo" fill sizes="80px" className="object-contain p-1" />
+          <div className="relative h-12 w-16 rounded-lg bg-white/95 p-1 ring-1 ring-white/25">
+            <Image
+              src="/images/logo.jpeg"
+              alt="Logo"
+              fill
+              sizes="64px"
+              className="object-contain p-1"
+            />
           </div>
           <div className="text-[11px] uppercase tracking-[0.32em] text-gold">
             Immobilien seit über zwei Jahrzehnten
@@ -55,36 +61,38 @@ export default function HeroHome() {
         </motion.div>
 
         <div className="max-w-[1050px]">
-          {"Ihr Immobilienpartner für das Saarland und die Welt.".split(" ").map((w, i, arr) => (
-            <span key={i} className="inline">
-              <span className="inline-block overflow-hidden align-bottom leading-[1]">
-                <motion.span
-                  initial={{ y: "110%" }}
-                  animate={{ y: "0%" }}
-                  transition={{
-                    duration: 1.1,
-                    ease: [0.23, 1, 0.32, 1],
-                    delay: 0.15 + i * 0.05,
-                  }}
-                  className="inline-block font-display text-[46px] leading-[1] text-white md:text-[86px] lg:text-[104px]"
-                >
-                  {w}
-                </motion.span>
-              </span>
-              {i < arr.length - 1 && (
-                <span className="font-display text-[46px] leading-[1] text-white md:text-[86px] lg:text-[104px]">
-                  {" "}
+          {"Ihr Immobilienpartner für das Saarland und die Welt."
+            .split(" ")
+            .map((w, i, arr) => (
+              <span key={i} className="inline">
+                <span className="inline-block overflow-hidden align-bottom leading-[1]">
+                  <motion.span
+                    initial={{ y: "110%" }}
+                    animate={{ y: "0%" }}
+                    transition={{
+                      duration: 1.1,
+                      ease: [0.23, 1, 0.32, 1],
+                      delay: 0.15 + i * 0.05,
+                    }}
+                    className="inline-block font-display text-[40px] leading-[1] text-white md:text-[68px] lg:text-[84px]"
+                  >
+                    {w}
+                  </motion.span>
                 </span>
-              )}
-            </span>
-          ))}
+                {i < arr.length - 1 && (
+                  <span className="font-display text-[40px] leading-[1] text-white md:text-[68px] lg:text-[84px]">
+                    {" "}
+                  </span>
+                )}
+              </span>
+            ))}
         </div>
 
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, ease: [0.23, 1, 0.32, 1], delay: 0.9 }}
-          className="mt-8 max-w-xl text-[15px] leading-relaxed text-white/85 md:text-[17px]"
+          className="mt-6 max-w-xl text-[15px] leading-relaxed text-white/85 md:text-[17px]"
         >
           Inhabergeführt aus Saarbrücken. Verkauf, Vermietung, Finanzierung und
           Bewertung von Wohn-, Gewerbe- und Anlageimmobilien. Diskret, persönlich,
@@ -95,7 +103,7 @@ export default function HeroHome() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, ease: [0.23, 1, 0.32, 1], delay: 1.05 }}
-          className="mt-10 flex flex-wrap items-center gap-3"
+          className="mt-8 flex flex-wrap items-center gap-3"
         >
           <Link href="/service/immobilienbewertung" className="btn-gold">
             Immobilie kostenfrei bewerten
@@ -103,18 +111,6 @@ export default function HeroHome() {
           <Link href="/kontakt" className="btn-ghost-dark">
             Termin vereinbaren
           </Link>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 1.3 }}
-          className="mt-14 hidden items-center gap-8 border-t border-white/15 pt-6 md:flex"
-        >
-          <TrustStat kpi="20+" label="Jahre Erfahrung" />
-          <TrustStat kpi="6" label="Landkreise · Saarland" />
-          <TrustStat kpi="§34c" label="+ §34i GewO" />
-          <TrustStat kpi="1:1" label="Betreuung durch den Inhaber" />
         </motion.div>
       </motion.div>
 
@@ -134,14 +130,5 @@ export default function HeroHome() {
         </div>
       </motion.div>
     </section>
-  );
-}
-
-function TrustStat({ kpi, label }: { kpi: string; label: string }) {
-  return (
-    <div className="flex flex-col">
-      <span className="font-display text-3xl text-white">{kpi}</span>
-      <span className="text-[11px] uppercase tracking-[0.22em] text-white/60">{label}</span>
-    </div>
   );
 }
