@@ -27,10 +27,14 @@ export default function Header() {
 
   return (
     <>
-      <div className="pointer-events-none fixed inset-x-0 top-0 z-40 h-24 bg-gradient-to-b from-black/25 to-transparent mask-b opacity-70" />
+      <div
+        className={`pointer-events-none fixed inset-x-0 top-0 z-40 h-28 bg-gradient-to-b from-black/30 to-transparent mask-b transition-opacity duration-300 ease-emil ${
+          scrolled ? "opacity-0" : "opacity-70"
+        }`}
+      />
 
       <header
-        className={`sticky top-0 z-50 w-full transition-[padding,backdrop-filter,background,box-shadow] duration-300 ease-emil ${
+        className={`fixed inset-x-0 top-0 z-50 w-full transition-[padding] duration-300 ease-emil ${
           scrolled ? "py-2.5" : "py-4"
         }`}
       >
@@ -38,7 +42,7 @@ export default function Header() {
           className={`mx-auto flex max-w-[1400px] items-center justify-between gap-6 rounded-full px-4 md:px-6 transition-all duration-300 ease-emil ${
             scrolled
               ? "border border-white/60 bg-white/70 shadow-header backdrop-saturate-150 backdrop-blur-xl"
-              : "border border-transparent bg-white/40 backdrop-blur-md"
+              : "border border-transparent bg-transparent"
           }`}
           style={{ width: "calc(100% - 2rem)" }}
         >
@@ -58,7 +62,11 @@ export default function Header() {
                 className="object-contain"
               />
             </div>
-            <span className="hidden font-display text-[19px] leading-none text-ink md:inline">
+            <span
+              className={`hidden font-display text-[19px] leading-none transition-colors duration-300 ease-emil md:inline ${
+                scrolled ? "text-ink" : "text-white drop-shadow-[0_1px_10px_rgba(0,0,0,0.55)]"
+              }`}
+            >
               Immobilien<span className="text-gold">·</span>Jost
             </span>
           </Link>
@@ -75,7 +83,11 @@ export default function Header() {
               >
                 <Link
                   href={item.href}
-                  className="relative inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-[13px] font-medium tracking-[0.05em] text-ink/85 transition-colors hover:text-ink"
+                  className={`relative inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-[13px] font-medium tracking-[0.05em] transition-colors duration-300 ease-emil ${
+                    scrolled
+                      ? "text-ink/85 hover:text-ink"
+                      : "text-white/90 hover:text-white drop-shadow-[0_1px_8px_rgba(0,0,0,0.55)]"
+                  }`}
                 >
                   {item.label}
                   {item.children && (
@@ -143,24 +155,28 @@ export default function Header() {
               type="button"
               aria-label="Menü öffnen"
               aria-expanded={mobileOpen}
-              className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-black/10 bg-white/70 backdrop-blur lg:hidden"
+              className={`inline-flex h-11 w-11 items-center justify-center rounded-full border backdrop-blur transition-colors duration-300 ease-emil lg:hidden ${
+                scrolled
+                  ? "border-black/10 bg-white/70"
+                  : "border-white/30 bg-white/10"
+              }`}
               onClick={() => setMobileOpen((v) => !v)}
             >
               <span className="relative block h-3 w-4">
                 <span
-                  className={`absolute left-0 top-0 h-[1.5px] w-full bg-ink transition-transform duration-300 ${
-                    mobileOpen ? "translate-y-[6px] rotate-45" : ""
-                  }`}
+                  className={`absolute left-0 top-0 h-[1.5px] w-full transition-all duration-300 ${
+                    scrolled ? "bg-ink" : "bg-white"
+                  } ${mobileOpen ? "translate-y-[6px] rotate-45" : ""}`}
                 />
                 <span
-                  className={`absolute left-0 top-1/2 h-[1.5px] w-full -translate-y-1/2 bg-ink transition-opacity duration-200 ${
-                    mobileOpen ? "opacity-0" : ""
-                  }`}
+                  className={`absolute left-0 top-1/2 h-[1.5px] w-full -translate-y-1/2 transition-all duration-200 ${
+                    scrolled ? "bg-ink" : "bg-white"
+                  } ${mobileOpen ? "opacity-0" : ""}`}
                 />
                 <span
-                  className={`absolute bottom-0 left-0 h-[1.5px] w-full bg-ink transition-transform duration-300 ${
-                    mobileOpen ? "-translate-y-[6px] -rotate-45" : ""
-                  }`}
+                  className={`absolute bottom-0 left-0 h-[1.5px] w-full transition-all duration-300 ${
+                    scrolled ? "bg-ink" : "bg-white"
+                  } ${mobileOpen ? "-translate-y-[6px] -rotate-45" : ""}`}
                 />
               </span>
             </button>
